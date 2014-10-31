@@ -26,11 +26,11 @@
     "url": "https://github.com/CamdenSegal/CamPoGen/issues"
   },
   "homepage": "https://github.com/CamdenSegal/CamPoGen",
-  "devDependencies": {
-    "gulp": "^3.8.9",
-    "rhyme": "0.0.3"
-  },
   "dependencies": {
-    "commander": "^2.5.0"
+    "commander": "^2.5.0",
+    "gulp": "^3.8.9",
+    "progress": "^1.1.8",
+    "rhyme": "0.0.3",
+    "underscore": "^1.7.0"
   }
 }
