@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git@github.com:CamdenSegal/CamPoGen.git"
   },
+  "bin": {
+    "poem": "./bin/poem"
+  },
   "keywords": [
     "poem",
     "computational",
@@ -26,5 +29,8 @@
   "devDependencies": {
     "gulp": "^3.8.9",
     "rhyme": "0.0.3"
+  },
+  "dependencies": {
+    "commander": "^2.5.0"
   }
 }

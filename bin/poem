@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+
+var poemGen   = require('../lib/poem-gen'),
+	program = require('commander');
+
+var args = {};
+
+program
+  .version('0.0.1')
+  .option('-f, --file [file]', 'Use specific source file [all]', '../data/all.txt')
+  .option('-r, --repeats [count]', 'Times to repeat rhyming scheme', 1)
+  .option('-w, --words [count]', 'Poem word length (overrides repeats)', 0)
+  .option('-v, --verbose', 'Show extra info')
+  .option('-s, --scheme [scheme]', 'Scheme name or pattern', 'couplet')
+  .parse(process.argv);
+
+args.words = program.words;
+args.repeats = program.repeats;
+args.scheme = program.scheme;
+
+if (program.verbose){
+	args.verbose = true;
+}
+
+poemGen(program.file, args, function( poem ) {
+	poem.toString();
+});
+
