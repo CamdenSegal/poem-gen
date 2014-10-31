@@ -1,8 +1,8 @@
 {
-  "name": "CamPoGen",
+  "name": "poem-gen",
   "version": "0.0.1",
   "description": "Poem generator",
-  "main": "campogen.js",
+  "main": "lib/poem-gen",
   "scripts": {
     "test": "gulp test"
   },
