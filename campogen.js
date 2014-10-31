@@ -11,7 +11,8 @@ var rl = readline.createInterface({
 var schemes = {
 	'sonnet': ['a10', 'b10', 'a10', 'b10', 'c10', 'd10', 'c10', 'd10', 'e10', 'f10', 'e10', 'f10', 'g10', 'g10'],
 	'haiku': ['a5','b7','c5'],
-	'simple': ['a8','a8'],
+	'couplet': ['a8','a8'],
+	'triplet': ['a8','a8','a8'],
 	'alternating': ['a8','b8','a8','b8'],
 	'limerick': ['a9','a9','b6','b6','a9']
 }
@@ -22,10 +23,13 @@ var scheme = schemes['haiku'],
 	wordMap = {},
 	lines = [],
 	curLine = 0,
-	r;
+	r,
+	file;
 
 var makeLines = function( number ) {
 	var i, schemeGroup, rhyme;
+
+	rhymeGroups = {};
 
 	for (i = 0;i < number; i += 1) {
 		if ( i % scheme.length == 0 ) {
@@ -38,12 +42,10 @@ var makeLines = function( number ) {
 		}
 		makeLine( rhyme, parseInt( schemeGroup.substr(1), 10 ) );
 		if ( ! rhyme ) {
-			rhymeGroups[schemeGroup.substr(0,1)] = lines[i][0];
+			rhymeGroups[schemeGroup.substr(0,1)] = lines[lines.length - 1][0];
 		}
-		//printLine( lines[i] );
 		util.print('.');
 	}
-	util.print('\n');
 };
 
 var makeLine = function( rhyme, syllables ){
@@ -78,7 +80,7 @@ var getSyllables = function( word ) {
 
 var printPoem = function() {
 	var i;
-
+	console.log('');
 	for (i=0;i<lines.length;i+=1) {
 		printLine(lines[i], (i == 0), (i == lines.length-1));
 	}
@@ -177,28 +179,64 @@ var choosePrevWord = function( curWord ) {
 	return prevWord;
 };
 
+var poemLength = function() {
+	var words = 0, i;
+
+	for (i = 0; i < lines.length; i += 1) {
+		words += lines[i].length;
+	}
+
+	return words;
+};
+
+var prev;
+var repeat = 1;
+var words;
+process.argv.forEach(function(val, index, array) {
+	if ( index == 2 ) {
+		file = val;
+	}
+	if ( prev == '-s' || prev == '--scheme' ) {
+		scheme = schemes[val];
+		if ( ! scheme ) {
+			scheme = val.split(' ');
+		}
+	}
+	if ( prev == '-r' || prev == '--repeat' ) {
+		repeat = parseInt( val, 10 );
+	}
+	if ( prev == '-w' || prev == '--words' ) {
+		words = parseInt( val, 10 );
+	}
+	prev = val;
+});
+
+process.on('SIGINT', function() {
+	printPoem();
+	process.kill();
+});
+
 console.log('Loading...');
 rhyme(function(tr) {
 	console.log('Loaded rhymes');
 	r = tr;
 
-	fs.readFile(process.argv[2], 'utf8', function(err,data){
+	fs.readFile(file, 'utf8', function(err,data){
 		text = data;
-
-		if ( process.argv[3] ) {
-			scheme = schemes[process.argv[3]];
-		}
-
-		var repeat = 1;
-		if ( process.argv[4] ) {
-			repeat = parseInt( process.argv[4], 10 );
-		}
 
 		parseTextToWordMap();
 
-		makeLines( scheme.length * repeat );
+		if ( words ) {
+			while ( poemLength() < words ) {
+				makeLines( scheme.length );
+			}
+		} else {
+			makeLines( scheme.length * repeat );
+		}
 
 		printPoem();
+
+		console.log( 'LENGTH: ' + poemLength() );
 
 		process.exit(0);
 	});
