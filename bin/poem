@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 
 var poemGen   = require('../lib/poem-gen'),
-	program = require('commander');
+	program   = require('commander'),
+	path      = require('path');
 
 var args = {};
 
 program
   .version('0.0.2')
-  .option('-f, --file [file]', 'Use specific source file [all]', '../data/all.txt')
+  .option('-d, --data [file]', 'Use built in data file [all]', 'all')
+  .option('-f, --file [file]', 'Use specific source file', '')
   .option('-r, --repeats [count]', 'Times to repeat rhyming scheme', 1)
   .option('-w, --words [count]', 'Poem word length (overrides repeats)', 0)
   .option('-v, --verbose', 'Show extra info')
@@ -22,7 +24,14 @@ if (program.verbose){
 	args.verbose = true;
 }
 
-poemGen(program.file, args, function( poem ) {
+var file;
+if ( program.file ) {
+	file = program.file;
+} else {
+	file = path.join( __dirname, '../data', program.data + '.txt' );
+}
+
+poemGen(file, args, function( poem ) {
 	poem.toString();
 });
 
