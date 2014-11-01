@@ -7,7 +7,7 @@ var poemGen   = require('../lib/poem-gen'),
 var args = {};
 
 program
-  .version('0.0.2')
+  .version('0.0.3')
   .option('-d, --data [file]', 'Use built in data file [all]', 'all')
   .option('-f, --file [file]', 'Use specific source file', '')
   .option('-r, --repeats [count]', 'Times to repeat rhyming scheme', 1)
