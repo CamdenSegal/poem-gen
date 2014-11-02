@@ -8,9 +8,9 @@ How It Works
 
 The source texts are converted into word maps - each word is linked with all words that are used before it - so the generator can imitate the usage of the word from the source text.
 
-Then a random word with existent rhymes in the source text is chosen as the first word of the poem. Each line is built from last word to first word using the word map. Words are added till the number of syllables desired is met.
+Then a random word with existent rhymes in the source text is chosen as the first word of the poem. Each line is built from last word to first word using the word map. Words are added till the number of desired syllables is met.
 
-This process is repeated for each line checking the rhyming scheme to see if the new line needs to rhyme with a word from a previous line.
+This process is repeated for each line within the confines of the chosen rhyming scheme. Rhyme scheme, source text, and length are customizable.
 
 Installation
 ===
@@ -58,14 +58,14 @@ Used with the `-d` option. Like `$ poem -d spooky/moby-dick`
 	* spooky/moby-dick
 	* spooky/poe
 	* spooky/sleepy-hallow
-* wierd
-	* wierd/pizza
-	* wierd/ulysses
+* weird
+	* weird/pizza
+	* weird/ulysses
 
 Rhyming Schemes
 ===
 
-Used with the `-s` option. Like `$ poem -s limerick`. You can also specify a custom scheme in the format of "a0" where `a` is any character for use a rhyming group specifier and 0 is the number of syllables. So `$poem -s "a5 b10 a5"` would generate a poem with three lines the first and last lines would rhyme and have 5 syllables and the middle line would have 10 syllables.
+Used with the `-s` option. Like `$ poem -s limerick`. You can also specify a custom scheme in the format of "a0" where `a` is any character for use a rhyming group specifier and 0 is the number of syllables. So `$poem -s "a5 b10 a5"` would generate a three line poem with first line five syllables in and third lines at five syllables each, middle line would have 10 syllables.
 
 * sonnet - a10 b10 a10 b10 c10 d10 c10 d10 e10 f10 e10 f10 g10 g10
 * haiku - a5 b7 c5
