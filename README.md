@@ -4,7 +4,7 @@ poem-gen
 `poem-gen` is a poem generator created for NaNoGenMo 2014 by Camden Segal. It uses large source texts from Project Gutenberg to make poems.
 
 How It Works
-===
+----
 
 The source texts are converted into word maps - each word is linked with all words that are used before it - so the generator can imitate the usage of the word from the source text.
 
@@ -13,7 +13,7 @@ Then a random word with existent rhymes in the source text is chosen as the firs
 This process is repeated for each line within the confines of the chosen rhyming scheme. Rhyme scheme, source text, and length are customizable.
 
 Installation
-===
+----
 
 To install the command line client:
 
@@ -24,7 +24,7 @@ poem-gen can also be used as a module in other node projects if you install it l
 `npm install poem-gen`
 
 Use
-===
+----
 
 CLI Options
 
@@ -40,7 +40,7 @@ CLI Options
     -s, --scheme [scheme]  Scheme name or pattern
 
 Data sets
-===
+----
 
 Used with the `-d` option. Like `$ poem -d spooky/moby-dick`
 
@@ -63,7 +63,7 @@ Used with the `-d` option. Like `$ poem -d spooky/moby-dick`
 	* weird/ulysses
 
 Rhyming Schemes
-===
+----
 
 Used with the `-s` option. Like `$ poem -s limerick`.
 
