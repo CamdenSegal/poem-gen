@@ -65,8 +65,16 @@ Used with the `-d` option. Like `$ poem -d spooky/moby-dick`
 Rhyming Schemes
 ===
 
-Used with the `-s` option. Like `$ poem -s limerick`. You can also specify a custom scheme in the format of "a0" where `a` is any character for use a rhyming group specifier and 0 is the number of syllables. So `$poem -s "a5 b10 a5"` would generate a three line poem with first line five syllables in and third lines at five syllables each, middle line would have 10 syllables.
+Used with the `-s` option. Like `$ poem -s limerick`.
 
+You can also specify a custom scheme in the format of "aX" where `a` is any character for use as a rhyming group specifier and `X` is the number of syllables.
+
+So `$ poem -s "a5 b10 a7"` would generate a three line poem:
+* The first line would be five syllables
+* The second line would be ten syllables
+* And the third line would be 7 syllables and would rhyme with the first line.
+
+Built in schemes:
 * sonnet - a10 b10 a10 b10 c10 d10 c10 d10 e10 f10 e10 f10 g10 g10
 * haiku - a5 b7 c5
 * couplet - a8 a8
