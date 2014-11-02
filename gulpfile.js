@@ -1,12 +1,14 @@
 var gulp = require('gulp'),
-	concat = require('gulp-concat'),
+	concat = require('gulp-concat')
+	jsoncombine = require('gulp-jsoncombine'),
 	del = require('del'),
 	fs = require('fs'),
 	path = require('path'),
-	merge = require('merge-stream');
+	merge = require('merge-stream'),
+	_ = require('underscore');
 
 gulp.task('clean', function(cb) {
-	del(['data/*.txt'], cb);
+	del(['data/*.txt', 'data/*.json'], cb);
 });
 
 function getFolders(dir) {
@@ -24,18 +26,37 @@ gulp.task('concat-folders', function(){
 		// minify
 		// rename to folder.min.js
 		// write to output again
-		return gulp.src(path.join('data', folder, '/*.txt'))
-			.pipe(concat(folder + '.txt'))
+		return gulp.src(path.join('data', folder, '/*.json'))
+			.pipe(jsoncombine(folder + '.json', combineWordMaps))
 			.pipe(gulp.dest('data'));
 	});
 
 	return merge(tasks);
 });
 
-gulp.task('concat-all', ['clean'], function(){
-	return gulp.src('data/**/*.txt')
-			.pipe(concat('all.txt'))
+gulp.task('concat', ['clean', 'concat-folders'], function(){
+	return gulp.src('data/*.json')
+			.pipe(jsoncombine('all.json', combineWordMaps))
 			.pipe(gulp.dest('./data/'));
 });
 
-gulp.task('concat', ['concat-all', 'concat-folders']);
+var combineWordMaps = function( data ) {
+	var combined = {};
+	for (var file in data) {
+		for ( var word in data[file] ) {
+			if ( combined[word] ){
+				var wordD = data[file][word];
+				if ( wordD.rhymes != 'unloaded' && combined[word].rhymes != 'unloaded' ) {
+					combined[word].rhymes = _.union( combined[word].rhymes, wordD.rhymes );
+				} else {
+					combined[word].rhymes = 'unloaded';
+				}
+				combined[word].priors = combined[word].priors.concat( wordD.priors );
+			} else {
+				combined[word] = data[file][word];
+			}
+		}
+	}
+
+	return new Buffer(JSON.stringify(combined));
+}

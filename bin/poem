@@ -3,12 +3,15 @@
 var poemGen   = require('../lib/poem-gen'),
 	program   = require('commander'),
 	path      = require('path'),
-	pack      = require('../package.json');
+	pack      = require('../package.json'),
+	fs        = require('fs');
 
 var args = {};
 
 program
   .version(pack.version)
+  .option('-c, --compile [file]', 'Compile a txt file to a source map', '')
+  .option('-q, --quick', 'Don\'t include rhymes or syllables in compilation')
   .option('-d, --data [file]', 'Use built in data file [all]', 'all')
   .option('-f, --file [file]', 'Use specific source file', '')
   .option('-r, --repeats [count]', 'Times to repeat rhyming scheme', 1)
@@ -26,10 +29,14 @@ if (program.verbose){
 }
 
 var file;
-if ( program.file ) {
+if ( program.compile ) {
+	file = program.compile;
+	args.compile = true;
+	args.quick = program.quick;
+} else if ( program.file ) {
 	file = program.file;
 } else {
-	file = path.join( __dirname, '../data', program.data + '.txt' );
+	file = path.join( __dirname, '../data', program.data + '.json' );
 }
 
 poemGen(file, args, function( poem ) {
