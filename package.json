@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:CamdenSegal/CamPoGen.git"
+    "url": "git@github.com:CamdenSegal/poem-gen.git"
   },
   "bin": {
     "poem": "./bin/poem"
@@ -23,9 +23,9 @@
   "author": "Camden Segal",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/CamdenSegal/CamPoGen/issues"
+    "url": "https://github.com/CamdenSegal/poem-gen/issues"
   },
-  "homepage": "https://github.com/CamdenSegal/CamPoGen",
+  "homepage": "https://github.com/CamdenSegal/poem-gen",
   "dependencies": {
     "commander": "^2.5.0",
     "gulp": "^3.8.9",
