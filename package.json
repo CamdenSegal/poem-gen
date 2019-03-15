@@ -1,6 +1,6 @@
 {
   "name": "poem-gen",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Poem generator",
   "main": "lib/poem-gen",
   "scripts": {
